@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="GlobulinSDL/GlobulinSDL.vcxproj" Id="0d22eff3-8d77-4555-821b-fc455dd99fc8" />
+</Solution>
