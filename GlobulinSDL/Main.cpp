@@ -1,5 +1,3 @@
-// GlobulinSDL.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 #include <string>
 #include <iostream>
 #include "SDL.h"
@@ -15,7 +13,7 @@ int main(int argc, char* argv[])
     }
 
     SDL_Window* window = SDL_CreateWindow(
-        "Virus Strike: Globulin Offensive",
+        "Jack Stiller, Virus Strike: Globulin Offensive",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         800, 600,
@@ -26,9 +24,6 @@ int main(int argc, char* argv[])
 
     bool running = true;
     SDL_Event event;
-
-    
-
 	Player player(400, 300, 1); //player starting position (x, y) and speed
 
     // Core game loop

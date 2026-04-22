@@ -4,7 +4,7 @@
 #include "SDL.h"
 
 class Player {
-public:
+public: // Constructor to initialize player position and speed
 	Player(int x, int y, int speed);
 	void handleInput(const Uint8* keystate);
 	int playerX;
