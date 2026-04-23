@@ -1,4 +1,7 @@
+// Game.cpp - Implementation of the Game class, managing the main game loop and 
+// the core SDL interactions allowing my game engine to function.
 #include "Game.h"
+
 
 Game::Game() : isRunning(false), window(nullptr), renderer(nullptr) {}
 Game::~Game() {}

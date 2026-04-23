@@ -1,3 +1,5 @@
+// Main.cpp - Entry point of the application, responsible for initializing the game engine, 
+// managing the main game loop, and ensuring proper cleanup of resources upon exit.
 #include "Game.h"
 
 Game* game = nullptr; // Global pointer to the Game instance, allowing access across the application
@@ -7,8 +9,7 @@ int main(int argc, char* argv[]) {
     // Heap instantiation of the Game engine.
     game = new Game();
 
-    const int FPS = 60; //enforce a consistent frame, regardless of hardware
-    const int frameDelay = 1000 / FPS; // About 16ms per frame
+
     
     // Window & title formatting
     game->init("Jack Stiller - CGP2015M - 25788983 - Virus Strike: Globulin Offensive",

@@ -1,3 +1,4 @@
+// Player.cpp - Implementation of the Player class, managing player input, state updates, and rendering.
 #include "Player.h"
 
 Player::Player(int x, int y, int s) : xPos(x), yPos(y), speed(s) {

@@ -1,3 +1,6 @@
+// Player.h, the header file for the Player class, defines the structure and functionality of the player entity in the game. 
+// It includes methods for handling input, updating state, and rendering the player on the screen.
+// The class also manages the player's position, speed, and the rectangle used for rendering.
 #pragma once
 #include <SDL.h>
 
