@@ -1,64 +1,39 @@
-#include <string>
-#include <iostream>
-#include "SDL.h"
-#include "Player.h"
+#include "Game.h"
 
-using namespace std;
+Game* game = nullptr; // Global pointer to the Game instance, allowing access across the application
 
-int main(int argc, char* argv[])
-{
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
-        return 1;
-    }
+int main(int argc, char* argv[]) {
 
-    SDL_Window* window = SDL_CreateWindow(
-        "Jack Stiller, Virus Strike: Globulin Offensive",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        800, 600,
-        SDL_WINDOW_SHOWN
-    );
+    // Heap instantiation of the Game engine.
+    game = new Game();
 
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    const int FPS = 60; //enforce a consistent frame, regardless of hardware
+    const int frameDelay = 1000 / FPS; // About 16ms per frame
+    
+    // Window & title formatting
+    game->init("Jack Stiller - CGP2015M - 25788983 - Virus Strike: Globulin Offensive",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
 
-    bool running = true;
-    SDL_Event event;
-	Player player(400, 300, 1); //player starting position (x, y) and speed
+	// Main game loop, continues until the user closes the window or the timer runs out.
+    while (game->running()) {
+        Uint32 frameStart = SDL_GetTicks(); // Record start time
 
-    // Core game loop
-    while (running)
-    {
-        // Player input
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT)
-                running = false;
-            
+        game->handleEvents();
+        game->update();
+        game->render();
+
+        // Calculate how long this frame took
+        Uint32 frameTime = SDL_GetTicks() - frameStart;
+
+        // If the frame finished too fast, wait until 16ms have passed
+        if (frameDelay > frameTime) {
+            SDL_Delay(frameDelay - frameTime);
         }
-
-        // Unity-esque update loop area
-
-        // Render onto the window created at start of Main()
-		//remember: clear the screen, draw everything, then present the renderer to the window
-        SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255);
-        SDL_RenderClear(renderer);
-
-
-        const Uint8* keystate = SDL_GetKeyboardState(NULL);
-        player.handleInput(keystate);
-
-        SDL_Rect playerRect = { player.playerX, player.playerY, 50, 50 };
-
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // white
-        SDL_RenderFillRect(renderer, &playerRect);
-
-        SDL_RenderPresent(renderer);
     }
-	// Cleanup and exit
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    
+
+    // Explicit resource deallocation to satisfy LO4 (Standard APIs).
+    game->clean();
 
     return 0;
 }
