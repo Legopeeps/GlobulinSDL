@@ -2,10 +2,10 @@
 // the core SDL interactions allowing my game engine to function.
 #include "Game.h"
 
-
 Game::Game() : isRunning(false), window(nullptr), renderer(nullptr),
-               isSplashScreen(true), splashTimer(0.0f), gameTimer(0.0f),
-               score(0), loggingEnabled(true) {}
+isSplashScreen(true), splashTimer(0.0f), gameTimer(0.0f),
+score(0), loggingEnabled(true), musicStarted(false) {
+}
 
 Game::~Game() {}
 
@@ -17,15 +17,27 @@ bool Game::init(const char* title, int x, int y, int w, int h, bool fullscreen) 
         // Logical scaling to maintain aspect ratio across resolutions.
         SDL_RenderSetLogicalSize(renderer, 800, 600);
 
-        SDL_Surface* tempSurface = SDL_LoadBMP("assets/HowToPlay.bmp");
-        if (tempSurface == nullptr) {
-            std::cout << "Failed to load BMP: " << SDL_GetError() << std::endl;
+        // Initialize audio system for music and sound effects.
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+            std::cout << "Mixer Initialization Error: " << Mix_GetError() << std::endl;
         }
-        else {
+
+		// Initialize TTF for text rendering (score display, timer, etc.)
+        if (TTF_Init() == -1) {
+            std::cout << "TTF Init Error: " << TTF_GetError() << std::endl;
+        }
+
+        // Load splash screen asset and music track.
+        SDL_Surface* tempSurface = SDL_LoadBMP("assets/HowToPlay.bmp");
+        if (tempSurface) {
             splashTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
             SDL_FreeSurface(tempSurface);
         }
-        player = new Player(400, 300, 5);
+
+        backgroundMusic = Mix_LoadMUS("assets/gameMusic.mp3");
+
+        // Spawn player at baseline for catch-style gameplay.
+        player = new Player(400, 530, 10);
         isRunning = true;
     }
     return isRunning;
@@ -40,16 +52,12 @@ void Game::handleEvents() {
 
         if (event.type == SDL_KEYDOWN) {
             switch (event.key.keysym.sym) {
-            case SDLK_f: // Toggle with 'F' key
+            case SDLK_f: // Toggle fullscreen mode.
                 isFullscreen = !isFullscreen;
-                if (isFullscreen) {
-                    // Use SDL_WINDOW_FULLSCREEN_DESKTOP to maintain resolution 
-                    // and allow SDL_RenderSetLogicalSize to handle letterboxing
-                    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-                }
-                else {
-                    SDL_SetWindowFullscreen(window, 0); // Windowed mode
-                }
+                SDL_SetWindowFullscreen(window, isFullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+                break;
+            case SDLK_l: // Toggle diagnostic logging.
+                loggingEnabled = !loggingEnabled;
                 break;
             }
         }
@@ -57,37 +65,44 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    // 5-second Splash Screen
+    // 5-second splash screen period for instructions.
     if (isSplashScreen) {
-        splashTimer += 0.016f; 
-        if (splashTimer >= splashDuration) 
+        splashTimer += 0.016f;
+        if (splashTimer >= 5.0f)
             isSplashScreen = false;
         return;
     }
 
-	// 60-second game-time period, after which 
-    // the game ends and the final score is displayed
-    gameTimer += 0.016f;
-    if (gameTimer >= 60.0f) 
-        isRunning = false;
+    // Start background music loop once gameplay begins.
+    if (!musicStarted) {
+        Mix_PlayMusic(backgroundMusic, -1);
+        musicStarted = true;
+    }
 
-    // Entity Logic
+    // 60-second game-time period, after which music stops and game ends.
+    gameTimer += 0.016f;
+    if (gameTimer >= 60.0f) {
+        Mix_HaltMusic();
+        isRunning = false;
+    }
+
+    // Process player movement and boundary constraints.
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
     player->handleInput(keystate);
     player->update(800, 600, 20);
 
-    // Beat Spawning: Procedural beat generation
+    // Procedural beat generation based on spawn intervals.
     beatTimer += 0.016f;
     if (beatTimer >= spawnInterval) {
         Beat b;
-        b.rect = { rand() % 760, -50, 40, 40 }; // Spawn above view-port
+        b.rect = { rand() % 760, -50, 40, 40 };
         b.speed = 4.5f;
         b.active = true;
         activeBeats.push_back(b);
         beatTimer = 0.0f;
     }
 
-    // Interaction & collisiion
+    // Linear virus movement and collision detection.
     for (auto& b : activeBeats) {
         if (b.active) {
             b.rect.y += (int)b.speed;
@@ -96,35 +111,28 @@ void Game::update() {
             if (SDL_HasIntersection(&pRect, &b.rect)) {
                 b.active = false;
                 score += 100;
-                if (loggingEnabled) std::cout << "[LOG] Catch Detected. Score: " << score << std::endl;
+                if (loggingEnabled) std::cout << "[LOG] Virus Caught. Score: " << score << std::endl;
             }
-            // Memory optimization: flag for removal if missed
             if (b.rect.y > 600) b.active = false;
         }
     }
 }
 
 void Game::render() {
-    // Clear to dark blue
-    SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255); // Background clear.
     SDL_RenderClear(renderer);
 
     if (isSplashScreen) {
-        // DRAW THE SPLASH SCREEN
-        if (splashTexture != nullptr) {
-            SDL_RenderCopy(renderer, splashTexture, NULL, NULL);
-        }
+        // Draw the instruction graphic during the splash state.
+        SDL_RenderCopy(renderer, splashTexture, NULL, NULL);
     }
     else {
-        // DRAW THE GAME
+        // Render gameplay entities and falling viruses.
         player->render(renderer);
 
-        // Draw falling beats (Neon Green)
         SDL_SetRenderDrawColor(renderer, 0, 255, 100, 255);
         for (auto& b : activeBeats) {
-            if (b.active) {
-                SDL_RenderFillRect(renderer, &b.rect);
-            }
+            if (b.active) SDL_RenderFillRect(renderer, &b.rect);
         }
     }
 
@@ -132,9 +140,11 @@ void Game::render() {
 }
 
 void Game::clean() {
-    std::cout << "Cleaning game..." << std::endl;
-    SDL_DestroyTexture(splashTexture); // Destroy the image
-    delete player;                     // Delete the player pointer
+    // Explicit deallocation of textures, music, and heap-allocated objects.
+    Mix_FreeMusic(backgroundMusic);
+    Mix_CloseAudio();
+    SDL_DestroyTexture(splashTexture);
+    delete player;
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();

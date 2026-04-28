@@ -4,6 +4,8 @@
 
 #pragma once
 #include <SDL.h>
+#include <SDL_mixer.h> 
+#include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
 #include "Player.h"
@@ -30,6 +32,7 @@ private:
     bool loggingEnabled; // Debug toggle
     bool isFullscreen = false;
 	bool isSplashScreen = true; 
+	bool musicStarted;
 
     
     SDL_Window* window;
@@ -44,6 +47,8 @@ private:
     SDL_Rect playArea;   // Boundary rectangle defining the playable area
 
     Player* player;      // Futureproofing to allow multiple entities, derived from "Player" class
+	Mix_Music* backgroundMusic; // BG-Music for the game session
+    TTF_Font* gameFont = nullptr;
 
     std::vector<Beat> activeBeats;
     float beatTimer = 0.0f;
