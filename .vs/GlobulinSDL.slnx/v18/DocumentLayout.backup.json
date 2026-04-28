@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "X:\\CREATED GAMES\\GlobulinSDL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Game.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Common.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0D22EFF3-8D77-4555-821B-FC455DD99FC8}|GlobulinSDL\\GlobulinSDL.vcxproj|solutionrelative:GlobulinSDL\\Main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,17 +34,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "Main.cpp",
               "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Main.cpp",
               "RelativeDocumentMoniker": "GlobulinSDL\\Main.cpp",
               "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Main.cpp",
               "RelativeToolTip": "GlobulinSDL\\Main.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-15T13:18:33.844Z",
               "IsPinned": true,
@@ -52,67 +52,70 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "Common.h",
               "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Common.h",
               "RelativeDocumentMoniker": "GlobulinSDL\\Common.h",
               "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Common.h",
               "RelativeToolTip": "GlobulinSDL\\Common.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-04-23T15:38:31.166Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Game.h",
+              "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h",
+              "RelativeDocumentMoniker": "GlobulinSDL\\Game.h",
+              "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h",
+              "RelativeToolTip": "GlobulinSDL\\Game.h",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAB0AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-23T12:01:02.03Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Player.h",
+              "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.h",
+              "RelativeDocumentMoniker": "GlobulinSDL\\Player.h",
+              "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.h",
+              "RelativeToolTip": "GlobulinSDL\\Player.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2026-04-17T01:16:09.551Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Game.cpp",
               "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.cpp",
               "RelativeDocumentMoniker": "GlobulinSDL\\Game.cpp",
               "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.cpp",
               "RelativeToolTip": "GlobulinSDL\\Game.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAwwIEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-23T12:09:40.867Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Game.h",
-              "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h",
-              "RelativeDocumentMoniker": "GlobulinSDL\\Game.h",
-              "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Game.h*",
-              "RelativeToolTip": "GlobulinSDL\\Game.h*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-23T12:01:02.03Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Player.cpp",
               "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.cpp",
               "RelativeDocumentMoniker": "GlobulinSDL\\Player.cpp",
               "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.cpp",
               "RelativeToolTip": "GlobulinSDL\\Player.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-04-17T01:14:33.236Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Player.h",
-              "DocumentMoniker": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.h",
-              "RelativeDocumentMoniker": "GlobulinSDL\\Player.h",
-              "ToolTip": "X:\\CREATED GAMES\\GlobulinSDL\\GlobulinSDL\\Player.h",
-              "RelativeToolTip": "GlobulinSDL\\Player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2026-04-17T01:16:09.551Z",
               "EditorCaption": ""
             }
           ]

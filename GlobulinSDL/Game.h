@@ -26,15 +26,20 @@ public:
     bool running() { return isRunning; }
 
 private:
-    bool isRunning;      // True/False flag to control the main game loop execution
-    bool loggingEnabled; // Toggle for debug messages in console
+    bool isRunning;      // Main Game Loop flag
+    bool loggingEnabled; // Debug toggle
     bool isFullscreen = false;
+	bool isSplashScreen = true; 
 
+    
     SDL_Window* window;
     SDL_Renderer* renderer;
+    SDL_Texture* splashTexture;
 
     float gameTimer;     // To keep to requirement of a 60 second session, tracking elapsed time
     int score;
+	float splashTimer = 0.0f; // Timer to track duration of splashscreen
+	const float splashDuration = 5.0f; // Duration for which the splash screen is displayed (in seconds)
 
     SDL_Rect playArea;   // Boundary rectangle defining the playable area
 

@@ -1,8 +1,5 @@
 ﻿  Game.cpp
   Main.cpp
+  Player.cpp
   Generating Code...
-  LINK : X:\CREATED GAMES\GlobulinSDL\x64\Debug\GlobulinSDL.exe not found or not built by the last incremental link; performing full link
-Main.obj : error LNK2005: "float beatTimer" (?beatTimer@@3MA) already defined in Game.obj
-Main.obj : error LNK2005: "float spawnInterval" (?spawnInterval@@3MA) already defined in Game.obj
-Main.obj : error LNK2005: "class std::vector<struct Beat,class std::allocator<struct Beat> > activeBeats" (?activeBeats@@3V?$vector@UBeat@@V?$allocator@UBeat@@@std@@@std@@A) already defined in Game.obj
-X:\CREATED GAMES\GlobulinSDL\x64\Debug\GlobulinSDL.exe : fatal error LNK1169: one or more multiply defined symbols found
+  GlobulinSDL.vcxproj -> X:\CREATED GAMES\GlobulinSDL\x64\Debug\GlobulinSDL.exe
