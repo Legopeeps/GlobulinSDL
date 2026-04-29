@@ -35,7 +35,7 @@ private:
 	bool isSplashScreen = true;
 	bool isGameOver = false; //game over screen flag
 	bool musicStarted;
-
+	bool bonusAwarded = false; //flag to track the bonus time activation
     
     SDL_Window* window;
     SDL_Renderer* renderer;

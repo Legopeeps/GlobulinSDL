@@ -169,10 +169,10 @@ void Game::update() {
         isGameOver = true;
     }
 
-    //if player reaches score of 70,000, give 15 seconds of extra time
-	if (score >= 70000 && gameTimer < 60.0f) {
+    //if player reaches score of 70,000, give 15 seconds of extra time ONE TIME
+	if (score >= 70000 && bonusAwarded == false) {
 		gameTimer -= 15; // Subtracting from the timer effectively gives the player more time to play, as the game ends when gameTimer reaches 60 seconds.
-		
+        bonusAwarded = true;
 		if (loggingEnabled)
 			std::cout << "[LOG] 70,000 Points Reached. Bonus 15 Seconds Awarded." << std::endl;
 	}
