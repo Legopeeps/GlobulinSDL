@@ -40,17 +40,21 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Texture* splashTexture;
+	SDL_Texture* lifeTexture;
+    SDL_Texture* beatTexture;
+	SDL_Texture* playerTexture;
 
-    float gameTimer;     // To keep to requirement of a 60 second session, tracking elapsed time
-    int score, combo, highestCombo;          // Current multiplier for consecutive catches
+    float gameTimer; //  Tracking elapsed time
+    int score, combo, highestCombo, lives;
 
     float splashTimer = 0.0f;
 	const float splashDuration = 5.0f; // Duration for which the splash screen is displayed (in seconds)
 
-    SDL_Rect playArea;   // Boundary rectangle defining the playable area
+    SDL_Rect playArea; // Boundary rectangle defining the playable area
 
-    Player* player;      // Futureproofing to allow multiple entities, derived from "Player" class
+    Player* player;
 	Mix_Music* backgroundMusic; // BG-Music for the game session
+    Mix_Chunk* catchSound; //on catch of beat dropping
     TTF_Font* gameFont = nullptr;
 
     std::vector<Beat> activeBeats;

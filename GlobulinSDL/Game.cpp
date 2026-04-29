@@ -4,7 +4,7 @@
 
 Game::Game() : isRunning(false), window(nullptr), renderer(nullptr),
 isSplashScreen(true), splashTimer(0.0f), gameTimer(0.0f),
-score(0), combo(1), highestCombo(1), loggingEnabled(true), musicStarted(false) {}
+score(0), combo(1), highestCombo(1),lives(3), loggingEnabled(true), musicStarted(false) { }
 
 Game::~Game() {}
 
@@ -41,17 +41,38 @@ bool Game::init(const char* title, int x, int y, int w, int h, bool fullscreen) 
             splashTexture = SDL_CreateTextureFromSurface(renderer, tempSurface);
             SDL_FreeSurface(tempSurface);
         }
+		// Load beat texture for the falling beats.
+        SDL_Surface* beatSurface = SDL_LoadBMP("assets/enemyBeat.bmp");
+        if (beatSurface == nullptr) {
+            std::cout << "Failed to load beat image! SDL Error: " << SDL_GetError() << std::endl;
+        }
+        else {
+            beatTexture = SDL_CreateTextureFromSurface(renderer, beatSurface);
+            SDL_FreeSurface(beatSurface);
+        }
+		// Load player texture for the player's character.
+        SDL_Surface* pSurf = SDL_LoadBMP("assets/player.bmp");
+        playerTexture = SDL_CreateTextureFromSurface(renderer, pSurf);
+        SDL_FreeSurface(pSurf);
 
+		// Load sound effect for catching a beat and background music for the game session.
+        catchSound = Mix_LoadWAV("assets/catch.wav");
         backgroundMusic = Mix_LoadMUS("assets/GameMusic.mp3");
 
         //logging the results of assets being loaded, if enabled
         if (loggingEnabled) {
-            if (backgroundMusic) {
+            if (backgroundMusic && catchSound) {
                 std::cout << "[LOG] Music loaded successfully." << std::endl;
             }
             else {
                 std::cout << "[LOG] Music Load Error: " << Mix_GetError() << std::endl;
             }
+			if (beatTexture) {
+				std::cout << "[LOG] Beat texture loaded successfully." << std::endl;
+			}
+			else {
+				std::cout << "[LOG] Beat Texture Load Error: " << SDL_GetError() << std::endl;
+			}
             if (gameFont) {
                 std::cout << "[LOG] Font loaded successfully." << std::endl;
             }
@@ -72,7 +93,14 @@ bool Game::init(const char* title, int x, int y, int w, int h, bool fullscreen) 
             }
         }
         // Spawn player at bottom center
-        player = new Player(400, 530, 10);
+        player = new Player(400, 500, 10);
+
+		// Load life icon texture for displaying remaining lives.
+        SDL_Surface* lifeSurface = SDL_LoadBMP("assets/Life.bmp");
+        if (lifeSurface) {
+            lifeTexture = SDL_CreateTextureFromSurface(renderer, lifeSurface);
+            SDL_FreeSurface(lifeSurface);
+        }
 		isRunning = true; // game loop flag after successful initialisation
     }
     return isRunning;
@@ -81,7 +109,7 @@ bool Game::init(const char* title, int x, int y, int w, int h, bool fullscreen) 
 /*
 Game::handleEvents -
 Handles player input and system events, including quitting, 
-toggling fullscreen mode with 'F', and toggling logging with 'L'.
+toggling fullscreen mode with 'F', and toggle logging with 'L'.
 */
 void Game::handleEvents() {
     SDL_Event event;
@@ -119,7 +147,7 @@ splash screen timing, music control, player movement,
 beat spawning, and collision detection.
 */
 void Game::update() {
-    // 5-second splash screen period for instructions.
+    // 5-second splash screen with controls/how to play guide.
     if (isSplashScreen) {
         splashTimer += 0.016f;
         if (splashTimer >= 5.0f)
@@ -128,7 +156,7 @@ void Game::update() {
     }
     if (isGameOver) return;
 
-    // Start background music loop once gameplay begins.
+    // Start background music once splashscreen is gone.
     if (!musicStarted) {
         Mix_PlayMusic(backgroundMusic, -1);
         musicStarted = true;
@@ -141,10 +169,18 @@ void Game::update() {
         isGameOver = true;
     }
 
+    //if player reaches score of 70,000, give 15 seconds of extra time
+	if (score >= 70000 && gameTimer < 60.0f) {
+		gameTimer -= 15; // Subtracting from the timer effectively gives the player more time to play, as the game ends when gameTimer reaches 60 seconds.
+		
+		if (loggingEnabled)
+			std::cout << "[LOG] 70,000 Points Reached. Bonus 15 Seconds Awarded." << std::endl;
+	}
+
     // Process player movement and boundary constraints.
     const Uint8* keystate = SDL_GetKeyboardState(NULL);
     player->handleInput(keystate);
-    player->update(800, 600, 20);
+    player->update(SCREEN_WIDTH, SCREEN_HEIGHT, BORDER_THICKNESS);
 
     // Procedural beat generation based on spawn intervals.
     beatTimer += 0.016f;
@@ -168,6 +204,7 @@ void Game::update() {
             if (SDL_HasIntersection(&pRect, &b.rect)) {
                 if(loggingEnabled)
 				    std::cout << "[LOG] Collision Detected at (" << b.rect.x << ", " << b.rect.y << ")" << std::endl;
+				Mix_PlayChannel(-1, catchSound, 0); // Play catch sound effect on successful catch
                 b.active = false;
                 score += (100 * combo); // Score scaling
                 combo++;                // Increment multiplier for consecutive catch
@@ -183,12 +220,17 @@ void Game::update() {
 
             // Out-of-bounds handling: Resets combo multiplier if a virus is missed.
             if (b.rect.y > 600) {
+                lives--;
+				combo = 1; // Reset combo on miss
                 b.active = false;
-                if (combo > 1) {
-                    combo = 1; // Reset multiplier on miss
-                    if (loggingEnabled) 
-                        std::cout << "[LOG] Virus Missed, Combo Reset. Highest Combo: x" << highestCombo << std::endl;
-                }
+                
+                if (loggingEnabled) 
+                    std::cout << "[LOG] Virus Missed, x" << lives << " Lives Remaining || Combo Reset, Highest Combo : x" << highestCombo << std::endl;
+				
+                if (lives <= 0) {
+					Mix_HaltMusic();
+					isGameOver = true;
+				}
             }
         }
     }
@@ -205,28 +247,30 @@ Handles all drawing operations for the current frame, including:
 void Game::render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255);
     SDL_RenderClear(renderer);
+    SDL_Color white = { 255, 255, 255, 255 };
 
     if (isSplashScreen) {
         SDL_RenderCopy(renderer, splashTexture, NULL, NULL);
     }
     else if (isGameOver) {
-        // --- GAME OVER UI ---
+        
         SDL_Color gold = { 255, 215, 0, 255 };
-        SDL_Color white = { 255, 255, 255, 255 };
-
-        // 1. "Game Over" Heading
+        
+        // Header
         std::string title = "Game Over!";
 
-        // 2. Final Stats String
+        // Final Stats
         std::string summary = "Final Score: " + std::to_string(score) +
             " | Max Combo: x" + std::to_string(highestCombo);
 
+        //bottom prompt
         std::string quitMsg = "Press ESC to Exit";
 
-        // Helper logic to render the strings (similar to your score logic)
+		// Render the text surfaces and convert them to textures for display.
         SDL_Surface* surfTitle = TTF_RenderText_Solid(gameFont, title.c_str(), gold);
         SDL_Surface* surfStats = TTF_RenderText_Solid(gameFont, summary.c_str(), white);
 
+		// Check if surfaces were created successfully before rendering.
         if (surfTitle && surfStats) {
             SDL_Texture* texTitle = SDL_CreateTextureFromSurface(renderer, surfTitle);
             SDL_Texture* texStats = SDL_CreateTextureFromSurface(renderer, surfStats);
@@ -243,6 +287,7 @@ void Game::render() {
             SDL_DestroyTexture(texTitle);
             SDL_DestroyTexture(texStats);
         }
+		// Render the quit prompt at the bottom of the screen.
         SDL_Surface* surfQuit = TTF_RenderText_Solid(gameFont, quitMsg.c_str(), white);
         if (surfQuit) {
             SDL_Texture* texQuit = SDL_CreateTextureFromSurface(renderer, surfQuit);
@@ -253,38 +298,47 @@ void Game::render() {
             SDL_DestroyTexture(texQuit);
         }
     }
-    else {
+    if (!isSplashScreen && !isGameOver) {
         // Render gameplay entities and falling viruses.
-        player->render(renderer);
+        player->render(renderer, playerTexture);
 
-        SDL_SetRenderDrawColor(renderer, 0, 255, 100, 255);
+        // Draw Lives directly below the player
+        for (int i = 0; i < lives; i++) {
+            // Positioned 55 pixels below the player's top
+            SDL_Rect lifeRect = {
+                player->getX() + (i * 18), // Spacing between sprites
+                player->getY() + 55,       // below the 50px tall player
+                15, 15                     // Sprite size
+            };
+            SDL_RenderCopy(renderer, lifeTexture, NULL, &lifeRect);
+        }
         for (auto& b : activeBeats) {
             if (b.active) 
-                SDL_RenderFillRect(renderer, &b.rect);
+                SDL_RenderCopy(renderer, beatTexture, NULL, &b.rect);
         }
+		// Prepare the score and timer strings for display.
         std::string scoreStr = "Score: " + std::to_string(score) + " | Combo: x" + std::to_string(combo) + " | Highest Combo: x" + std::to_string(highestCombo);
         int timeLeft = 60 - (int)gameTimer;
         if (timeLeft < 0) timeLeft = 0;
 
         std::string timerStr = "Time: " + std::to_string(timeLeft) + "s";
 
-        SDL_Color yellow = { 255, 255, 0, 255 }; // Make it yellow so it stands out
+        SDL_Color yellow = { 255, 255, 0, 255 }; 
         SDL_Surface* timerSurface = TTF_RenderText_Solid(gameFont, timerStr.c_str(), yellow);
 
         if (timerSurface) {
             SDL_Texture* timerTexture = SDL_CreateTextureFromSurface(renderer, timerSurface);
 
-            // Position it in the top right (800 is width, minus surface width and a 20px margin)
+            // Positioned  in the top right (20px margin)
             SDL_Rect timerRect = { 800 - timerSurface->w - 20, 20, timerSurface->w, timerSurface->h };
 
             SDL_RenderCopy(renderer, timerTexture, NULL, &timerRect);
 
-            // Clean up the "surf" variables (as discussed before!)
+			// Clean up the timer surface and texture after rendering.
             SDL_FreeSurface(timerSurface);
             SDL_DestroyTexture(timerTexture);
         }
 
-        SDL_Color white = { 255, 255, 255, 255 };
         SDL_Surface* scoreSurface = TTF_RenderText_Solid(gameFont, scoreStr.c_str(), white);
         if (scoreSurface) {
             SDL_Texture* scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
@@ -318,6 +372,9 @@ void Game::clean() {
     
     delete player;
     
+	SDL_DestroyTexture(playerTexture);
+	SDL_DestroyTexture(lifeTexture);
+	SDL_DestroyTexture(beatTexture);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();

@@ -10,5 +10,8 @@ struct Beat {
     float speed;
 };
 
-const int FPS = 60; //enforce a consistent frame, regardless of hardware
+const int FPS = 60; //enforce a consistant framerate, regardless of hardware
 const int frameDelay = 1000 / FPS; // About 16ms per frame
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 600;
+const int BORDER_THICKNESS = 30;

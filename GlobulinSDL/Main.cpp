@@ -15,13 +15,13 @@ int main(int argc, char* argv[]) {
 
 	// Main game loop, continues until the user closes the window or the timer runs out.
     while (game->running()) {
-        Uint32 frameStart = SDL_GetTicks(); // Record start time
+        Uint32 frameStart = SDL_GetTicks(); // Records game start time
 
         game->handleEvents();
         game->update();
         game->render();
 
-        // Calculate how long this frame took
+        // Calculate how long tbe frame took
         Uint32 frameTime = SDL_GetTicks() - frameStart;
 
         // If the frame finished too fast, wait until 16ms have passed

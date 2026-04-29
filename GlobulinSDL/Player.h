@@ -16,7 +16,7 @@ public:
     void update(int screenWidth, int screenHeight, int borderThickness);
 
     // Dispatches the draw call for the entity to the current render target
-    void render(SDL_Renderer* renderer);
+    void render(SDL_Renderer* renderer, SDL_Texture* tex);
 
     // Getters for the player's private coordinates
     int getX() { return xPos; }

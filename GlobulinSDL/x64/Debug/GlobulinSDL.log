@@ -1,2 +1,5 @@
-﻿  Player.cpp
-  GlobulinSDL.vcxproj -> X:\CREATED GAMES\GlobulinSDL\x64\Debug\GlobulinSDL.exe
+﻿  Game.cpp
+  Main.cpp
+  Player.cpp
+  Generating Code...
+  GlobulinSDL.vcxproj -> C:\Users\jackm\Documents\GitHub\GlobulinSDL\x64\Debug\GlobulinSDL.exe
