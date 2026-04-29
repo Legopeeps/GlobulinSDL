@@ -3,13 +3,12 @@
 
 Player::Player(int x, int y, int s) : xPos(x), yPos(y), speed(s) {
     destRect.w = 50;
-    destRect.h = 50;
-}
+    destRect.h = 50;}
 
 Player::~Player() {}
 
 void Player::handleInput(const Uint8* keystate) {
-	// Movement input handling, 
+	// Movement input handling,
     // left and right for 'A' and 'D' keys respectively
     if (keystate[SDL_SCANCODE_A]) xPos -= speed;
     if (keystate[SDL_SCANCODE_D]) xPos += speed;

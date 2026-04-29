@@ -8,6 +8,7 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Player.h"
 #include "Common.h" //contains beat-related data and constant definitions
 
@@ -40,8 +41,9 @@ private:
     SDL_Texture* splashTexture;
 
     float gameTimer;     // To keep to requirement of a 60 second session, tracking elapsed time
-    int score;
-	float splashTimer = 0.0f; // Timer to track duration of splashscreen
+    int score, combo, highestCombo;          // Current multiplier for consecutive catches
+
+    float splashTimer = 0.0f;
 	const float splashDuration = 5.0f; // Duration for which the splash screen is displayed (in seconds)
 
     SDL_Rect playArea;   // Boundary rectangle defining the playable area

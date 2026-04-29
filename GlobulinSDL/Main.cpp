@@ -9,8 +9,6 @@ int main(int argc, char* argv[]) {
     // Heap instantiation of the Game engine.
     game = new Game();
 
-
-    
     // Window & title formatting
     game->init("Jack Stiller - CGP2015M - 25788983 - Virus Strike: Globulin Offensive",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
@@ -32,9 +30,7 @@ int main(int argc, char* argv[]) {
         }
     }
     
-
-    // Explicit resource deallocation to satisfy LO4 (Standard APIs).
+	// end of the game loop, clean up resources & exit
     game->clean();
-
     return 0;
 }

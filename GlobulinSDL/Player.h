@@ -23,7 +23,6 @@ public:
     int getY() { return yPos; }
 
 private:
-    int xPos, yPos;   // Base, spatial coordinates
-    int speed;        
+    int xPos, yPos, speed;   // Base, spatial coordinates
     SDL_Rect destRect; // Mapping of logical coordinates to a renderable area
 };
