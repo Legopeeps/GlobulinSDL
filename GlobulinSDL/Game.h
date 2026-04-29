@@ -32,7 +32,8 @@ private:
     bool isRunning;      // Main Game Loop flag
     bool loggingEnabled; // Debug toggle
     bool isFullscreen = false;
-	bool isSplashScreen = true; 
+	bool isSplashScreen = true;
+	bool isGameOver = false; //game over screen flag
 	bool musicStarted;
 
     

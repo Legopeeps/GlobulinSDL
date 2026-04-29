@@ -104,6 +104,11 @@ void Game::handleEvents() {
                 break;
             }
         }
+        if (event.type == SDL_KEYDOWN) { //Quit with escape key
+            if (event.key.keysym.sym == SDLK_ESCAPE) {
+                isRunning = false; 
+            }
+        }
     }
 }
 
@@ -121,6 +126,7 @@ void Game::update() {
             isSplashScreen = false;
         return;
     }
+    if (isGameOver) return;
 
     // Start background music loop once gameplay begins.
     if (!musicStarted) {
@@ -132,7 +138,7 @@ void Game::update() {
     gameTimer += 0.016f;
     if (gameTimer >= 60.0f) {
         Mix_HaltMusic();
-        isRunning = false;
+        isGameOver = true;
     }
 
     // Process player movement and boundary constraints.
@@ -160,7 +166,8 @@ void Game::update() {
 
             // Collision handling: Increments score based on current combo multiplier.
             if (SDL_HasIntersection(&pRect, &b.rect)) {
-				std::cout << "[LOG] Collision Detected at (" << b.rect.x << ", " << b.rect.y << ")" << std::endl;
+                if(loggingEnabled)
+				    std::cout << "[LOG] Collision Detected at (" << b.rect.x << ", " << b.rect.y << ")" << std::endl;
                 b.active = false;
                 score += (100 * combo); // Score scaling
                 combo++;                // Increment multiplier for consecutive catch
@@ -196,12 +203,55 @@ Handles all drawing operations for the current frame, including:
 - Displaying the current score, combo and lives in the top-left corner.
 */
 void Game::render() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255); // Background clear.
+    SDL_SetRenderDrawColor(renderer, 0, 0, 20, 255);
     SDL_RenderClear(renderer);
 
     if (isSplashScreen) {
-        // Draw the instruction graphic during the splash state.
         SDL_RenderCopy(renderer, splashTexture, NULL, NULL);
+    }
+    else if (isGameOver) {
+        // --- GAME OVER UI ---
+        SDL_Color gold = { 255, 215, 0, 255 };
+        SDL_Color white = { 255, 255, 255, 255 };
+
+        // 1. "Game Over" Heading
+        std::string title = "Game Over!";
+
+        // 2. Final Stats String
+        std::string summary = "Final Score: " + std::to_string(score) +
+            " | Max Combo: x" + std::to_string(highestCombo);
+
+        std::string quitMsg = "Press ESC to Exit";
+
+        // Helper logic to render the strings (similar to your score logic)
+        SDL_Surface* surfTitle = TTF_RenderText_Solid(gameFont, title.c_str(), gold);
+        SDL_Surface* surfStats = TTF_RenderText_Solid(gameFont, summary.c_str(), white);
+
+        if (surfTitle && surfStats) {
+            SDL_Texture* texTitle = SDL_CreateTextureFromSurface(renderer, surfTitle);
+            SDL_Texture* texStats = SDL_CreateTextureFromSurface(renderer, surfStats);
+
+            // Center the text on the 800x600 screen
+            SDL_Rect rectTitle = { 400 - (surfTitle->w / 2), 200, surfTitle->w, surfTitle->h };
+            SDL_Rect rectStats = { 400 - (surfStats->w / 2), 300, surfStats->w, surfStats->h };
+
+            SDL_RenderCopy(renderer, texTitle, NULL, &rectTitle);
+            SDL_RenderCopy(renderer, texStats, NULL, &rectStats);
+
+            SDL_FreeSurface(surfTitle);
+            SDL_FreeSurface(surfStats);
+            SDL_DestroyTexture(texTitle);
+            SDL_DestroyTexture(texStats);
+        }
+        SDL_Surface* surfQuit = TTF_RenderText_Solid(gameFont, quitMsg.c_str(), white);
+        if (surfQuit) {
+            SDL_Texture* texQuit = SDL_CreateTextureFromSurface(renderer, surfQuit);
+            SDL_Rect rectQuit = { 400 - (surfQuit->w / 2), 400, surfQuit->w, surfQuit->h };
+            SDL_RenderCopy(renderer, texQuit, NULL, &rectQuit);
+
+            SDL_FreeSurface(surfQuit);
+            SDL_DestroyTexture(texQuit);
+        }
     }
     else {
         // Render gameplay entities and falling viruses.
@@ -213,6 +263,27 @@ void Game::render() {
                 SDL_RenderFillRect(renderer, &b.rect);
         }
         std::string scoreStr = "Score: " + std::to_string(score) + " | Combo: x" + std::to_string(combo) + " | Highest Combo: x" + std::to_string(highestCombo);
+        int timeLeft = 60 - (int)gameTimer;
+        if (timeLeft < 0) timeLeft = 0;
+
+        std::string timerStr = "Time: " + std::to_string(timeLeft) + "s";
+
+        SDL_Color yellow = { 255, 255, 0, 255 }; // Make it yellow so it stands out
+        SDL_Surface* timerSurface = TTF_RenderText_Solid(gameFont, timerStr.c_str(), yellow);
+
+        if (timerSurface) {
+            SDL_Texture* timerTexture = SDL_CreateTextureFromSurface(renderer, timerSurface);
+
+            // Position it in the top right (800 is width, minus surface width and a 20px margin)
+            SDL_Rect timerRect = { 800 - timerSurface->w - 20, 20, timerSurface->w, timerSurface->h };
+
+            SDL_RenderCopy(renderer, timerTexture, NULL, &timerRect);
+
+            // Clean up the "surf" variables (as discussed before!)
+            SDL_FreeSurface(timerSurface);
+            SDL_DestroyTexture(timerTexture);
+        }
+
         SDL_Color white = { 255, 255, 255, 255 };
         SDL_Surface* scoreSurface = TTF_RenderText_Solid(gameFont, scoreStr.c_str(), white);
         if (scoreSurface) {

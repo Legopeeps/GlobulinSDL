@@ -25,4 +25,12 @@ public:
 private:
     int xPos, yPos, speed;   // Base, spatial coordinates
     SDL_Rect destRect; // Mapping of logical coordinates to a renderable area
+    bool isDashing = false;
+    float dashTimer = 0.0f;
+    float dashCooldownTimer = 0.0f;
+
+    const float DASH_DURATION = 0.15f; // How long the burst lasts
+    const float DASH_COOLDOWN = 1.0f; // Time between dashes
+    const int DASH_SPEED_MULT = 3;    // Triple the normal speed
+	int dashDir = 0; //-1 for left, 1 for right, 0 for no dash
 };
