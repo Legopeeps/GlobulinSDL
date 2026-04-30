@@ -3,6 +3,7 @@
 
 <h2>Description</h2>
 <p>Rhythm game made in C++, making use of the SDL2 Library to create a game engine and subsequently a game within the engine.</p>
+<p>Currently features one song with procedural beat generation.</p>
 
 <h2>Game Specification</h2>
 <p><b>Players:</b> Single Player</p>
@@ -11,6 +12,9 @@
 
 <h2>Controls</h2>
 <p>Keyboard [ONLY]: WASD/Arrow Keys to navigate, "Space" to select, "Esc" to pause, "Enter" to play cards/end turn</p>
+
+<h2>Licensing</h2>
+Pixabay Content License: <a href="https://pixabay.com/music/upbeat-60000-light-years-140306/">60,000 Light Years</a>, by <a href="https://pixabay.com/users/jim_combs-3407552/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=140306">Jim Combs</a> from <a href="https://pixabay.com/music/">Pixabay</a>
 
 <h2>Links</h2>
 <p>**To be added at later date**</p>
