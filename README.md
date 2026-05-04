@@ -3,6 +3,7 @@
 
 <h2>Description</h2>
 <p>Rhythm game made in C++, making use of the SDL2 Library to create a game engine and subsequently a game within the engine.</p>
+<p>You control a super funky antibody, absorbing & destroying pathogens to the beat!</p>
 <p>Currently features one song with procedural beat generation.</p>
 
 <h2>Game Specification</h2>
