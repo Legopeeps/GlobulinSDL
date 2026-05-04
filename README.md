@@ -1,4 +1,4 @@
-<h1>Virus Stike: Globulin Offensive (VS:GO)</h1>
+<h1>Virus Strike: Globulin Offensive (VS:GO)</h1>
 <p>Created by Legopeeps for CMP2015 Games Programming Assignment</p>
 
 <h2>Description</h2>
