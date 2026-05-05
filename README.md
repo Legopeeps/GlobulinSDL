@@ -14,8 +14,5 @@
 <h2>Controls (Keyboard ONLY) </h2>
 <p>"A" and "D" key to move left or right , "shift" to dash, "Esc" to quit, "F" to go fullscreen, "L" for console debugging/logging</p>
 
-<h2>Licensing</h2>
-Pixabay Content License: <a href="https://pixabay.com/music/upbeat-60000-light-years-140306/">60,000 Light Years</a>, by <a href="https://pixabay.com/users/jim_combs-3407552/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=140306">Jim Combs</a> from <a href="https://pixabay.com/music/">Pixabay</a>
-
 <h2>Links</h2>
 <p>**To be added at later date**</p>
